@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ERP.Bancaire.API/ERP.Bancaire.API.csproj" />
+  <Project Path="ERP.Bancaire.Application/ERP.Bancaire.Application.csproj" />
+  <Project Path="ERP.Bancaire.Domain/ERP.Bancaire.Domain.csproj" />
+  <Project Path="ERP.Bancaire.Infrastructure/ERP.Bancaire.Infrastructure.csproj" />
+  <Project Path="ERP.Bancaire.Persistence/ERP.Bancaire.Persistence.csproj" />
+</Solution>

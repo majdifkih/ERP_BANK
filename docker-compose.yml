@@ -1,0 +1,75 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16
+
+    container_name: erp_postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ERP_Bancaire
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+    container_name: erp_pgadmin
+
+    restart: unless-stopped
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@erp-bancaire.tn
+      PGADMIN_DEFAULT_PASSWORD: admin123
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      - postgres
+
+  backend:
+    build:
+      context: ./ERP-Bancaire-Server
+      dockerfile: Dockerfile
+
+    container_name: erp_backend
+
+    restart: unless-stopped
+
+    depends_on:
+      - postgres
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=ERP_Bancaire;Username=postgres;Password=postgres
+
+    ports:
+      - "5000:8080"
+
+  frontend:
+    build:
+      context: ./ERP-Bancaire-Client
+      dockerfile: Dockerfile
+
+    container_name: erp_frontend
+
+    restart: unless-stopped
+
+    depends_on:
+      - backend
+
+    ports:
+      - "4200:80"
+
+volumes:
+  postgres_data:
