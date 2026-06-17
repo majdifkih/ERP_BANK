@@ -17,7 +17,7 @@ export interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:5000/api/auth';
+  private readonly apiUrl = 'http:////158.178.211.118:5000/api/auth';
   private readonly accessTokenKey = 'erp_access_token';
   private readonly refreshTokenKey = 'erp_refresh_token';
 
