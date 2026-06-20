@@ -35,6 +35,9 @@ builder.Services.AddDbContext<ERPBancaireDbContext>(options =>
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.Configure<SmtpSettings>(
+    builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddScoped<ERP.Bancaire.Application.Interfaces.IEmailService, ERP.Bancaire.Infrastructure.Services.EmailService>();
 
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));

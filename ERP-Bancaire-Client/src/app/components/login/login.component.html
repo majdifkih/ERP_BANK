@@ -1,0 +1,72 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="login-header">
+      <img src="/Logo_STB.png" alt="STB Bank Logo" class="logo-image" />
+      <h1>ERP Bancaire</h1>
+      <p class="subtitle">Plateforme Intelligente</p>
+    </div>
+
+    <form (ngSubmit)="login()" class="login-form">
+      <div class="form-group">
+        <label for="username">
+          <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Nom d'utilisateur
+        </label>
+        <input 
+          id="username" 
+          name="username" 
+          [(ngModel)]="username" 
+          type="text"
+          placeholder="Entrez votre nom d'utilisateur"
+          required 
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">
+          <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Mot de passe
+        </label>
+        <input 
+          id="password" 
+          name="password" 
+          type="password" 
+          [(ngModel)]="password" 
+          placeholder="Entrez votre mot de passe"
+          required 
+          class="form-input"
+        />
+      </div>
+
+      <button type="submit" [disabled]="loading" class="submit-button">
+        <span *ngIf="!loading">Se connecter</span>
+        <span *ngIf="loading" class="spinner"></span>
+        <span *ngIf="loading">Connexion en cours...</span>
+      </button>
+    </form>
+
+    <p class="forgot-link"><a routerLink="/forgot-password">Mot de passe oublié ?</a></p>
+
+    <div class="error-message" *ngIf="errorMessage">
+      <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      {{ errorMessage }}
+    </div>
+
+    <div class="footer-info">
+      <p>© {{ currentYear }} ERP Bancaire. Tous droits réservés.</p>
+    </div>
+  </div>
+
+  <div class="background-decoration"></div>
+</div>

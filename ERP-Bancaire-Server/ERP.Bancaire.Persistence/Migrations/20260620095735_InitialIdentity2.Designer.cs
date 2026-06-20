@@ -3,6 +3,7 @@ using System;
 using ERP.Bancaire.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ERP.Bancaire.Persistence.Migrations
 {
     [DbContext(typeof(ERPBancaireDbContext))]
-    partial class ERPBancaireDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260620095735_InitialIdentity2")]
+    partial class InitialIdentity2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

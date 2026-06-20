@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AuthService } from '../Service/auth.service';
 
 export const jwtInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,

@@ -17,7 +17,7 @@ export interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'http:////158.178.211.118:5000/api/auth';
+  private readonly apiUrl = 'http://localhost:5000/api/auth';
   private readonly accessTokenKey = 'erp_access_token';
   private readonly refreshTokenKey = 'erp_refresh_token';
 
@@ -57,6 +57,15 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  forgotPassword(email: string): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+  }
+  resetPassword(token: string, newPassword: string) {
+  return this.http.post(`${this.apiUrl}/reset-password`, {
+    token,
+    newPassword
+  });
+  }
   getAccessToken(): string | null {
     return localStorage.getItem(this.accessTokenKey);
   }

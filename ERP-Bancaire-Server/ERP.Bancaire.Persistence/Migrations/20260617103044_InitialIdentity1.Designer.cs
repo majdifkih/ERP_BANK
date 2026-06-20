@@ -3,6 +3,7 @@ using System;
 using ERP.Bancaire.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ERP.Bancaire.Persistence.Migrations
 {
     [DbContext(typeof(ERPBancaireDbContext))]
-    partial class ERPBancaireDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260617103044_InitialIdentity1")]
+    partial class InitialIdentity1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,12 +137,6 @@ namespace ERP.Bancaire.Persistence.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("PasswordResetToken")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("PasswordResetTokenExpiry")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");

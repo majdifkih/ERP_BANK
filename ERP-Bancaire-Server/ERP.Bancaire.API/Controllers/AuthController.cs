@@ -20,29 +20,92 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(
         LoginRequest request)
     {
-        var result =
-            await _authService.LoginAsync(request);
+        try
+        {
+            var result =
+                await _authService.LoginAsync(request);
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh(
         RefreshTokenRequest request)
     {
-        var result =
-            await _authService.RefreshTokenAsync(
-                request.RefreshToken);
+        try
+        {
+            var result =
+                await _authService.RefreshTokenAsync(
+                    request.RefreshToken);
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("logout")]
     public async Task<IActionResult> Logout(
         RefreshTokenRequest request)
     {
-        await _authService.LogoutAsync(request.RefreshToken);
+        try
+        {
+            await _authService.LogoutAsync(request.RefreshToken);
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPassword(
+        [FromBody] ForgotPasswordRequest request)
+    {
+        try
+        {
+            await _authService.ForgotPasswordAsync(request);
+
+            return Ok(new
+            {
+                message = "Si le compte existe, un email a été envoyé."
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                message = ex.Message
+            });
+        }
+    }
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword(
+        [FromBody] ResetPasswordRequest request)
+    {
+        try
+        {
+            await _authService.ResetPasswordAsync(request);
+
+            return Ok(new
+            {
+                message = "Mot de passe modifié avec succès."
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                message = ex.Message
+            });
+        }
+}
 }
