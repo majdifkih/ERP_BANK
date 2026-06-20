@@ -1,6 +1,6 @@
 .vs/
 *.user
 *.suo
-
+appsettings.json
 bin/
 obj/
