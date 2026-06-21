@@ -35,10 +35,17 @@ try
     builder.Services.AddPermissionAuthorization();
 
     builder.Services.AddCors(options =>
+    {
         options.AddPolicy("AllowAngularDevClient", policy =>
-            policy.AllowAnyOrigin()
-                  .AllowAnyMethod()
-                  .AllowAnyHeader()));
+        {
+            policy
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        });
+    });
+
 
     // ── Build ─────────────────────────────────────────────────────
     var app = builder.Build();
@@ -59,7 +66,7 @@ try
         });
     }
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
     app.UseCors("AllowAngularDevClient");
     app.UseSerilogRequestLogging();
     app.UseAuthentication();

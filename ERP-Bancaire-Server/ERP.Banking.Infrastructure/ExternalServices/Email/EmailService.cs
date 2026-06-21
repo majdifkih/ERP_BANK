@@ -1,4 +1,4 @@
-using ERP.Banking.Application.Interfaces.Email;  
+using ERP.Banking.Application.Interfaces.Email;
 using ERP.Banking.Application.Settings;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -8,9 +8,6 @@ using MimeKit;
 
 namespace ERP.Banking.Infrastructure.ExternalServices.Email;
 
-/// <summary>
-/// Sends transactional emails via SMTP using MailKit.
-/// </summary>
 internal sealed class EmailService : IEmailService
 {
     private readonly EmailSettings _settings;
@@ -33,10 +30,23 @@ internal sealed class EmailService : IEmailService
         ArgumentException.ThrowIfNullOrWhiteSpace(to);
         ArgumentException.ThrowIfNullOrWhiteSpace(subject);
 
-        var message = BuildMessage(to, subject, body);
-
         try
         {
+            var message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress(
+                _settings.SenderName,
+                _settings.SenderEmail
+            ));
+
+            message.To.Add(MailboxAddress.Parse(to));
+            message.Subject = subject;
+
+            message.Body = new TextPart("html")
+            {
+                Text = body
+            };
+
             using var client = new SmtpClient();
 
             await client.ConnectAsync(
@@ -51,7 +61,7 @@ internal sealed class EmailService : IEmailService
                 cancellationToken);
 
             await client.SendAsync(message, cancellationToken);
-            await client.DisconnectAsync(quit: true, cancellationToken);
+            await client.DisconnectAsync(true, cancellationToken);
 
             _logger.LogInformation(
                 "Email sent to {Recipient} — Subject: {Subject}", to, subject);
@@ -62,15 +72,5 @@ internal sealed class EmailService : IEmailService
                 "Failed to send email to {Recipient} — Subject: {Subject}", to, subject);
             throw;
         }
-    }
-
-    private MimeMessage BuildMessage(string to, string subject, string body)
-    {
-        var message = new MimeMessage();
-        message.From.Add(new MailboxAddress(_settings.SenderName, _settings.SenderEmail));
-        message.To.Add(MailboxAddress.Parse(to));
-        message.Subject = subject;
-        message.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = body };
-        return message;
     }
 }
