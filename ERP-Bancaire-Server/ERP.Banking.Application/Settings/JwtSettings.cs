@@ -2,9 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ERP.Banking.Application.Settings;
 
-/// <summary>
-/// JWT configuration bound from appsettings.json → "JwtSettings".
-/// </summary>
+
 public sealed class JwtSettings
 {
     public const string SectionName = "JwtSettings";

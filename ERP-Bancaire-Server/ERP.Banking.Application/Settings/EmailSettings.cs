@@ -2,9 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ERP.Banking.Application.Settings;
 
-/// <summary>
-/// SMTP configuration bound from appsettings.json → "EmailSettings".
-/// </summary>
 public sealed class EmailSettings
 {
     public const string SectionName = "EmailSettings";
