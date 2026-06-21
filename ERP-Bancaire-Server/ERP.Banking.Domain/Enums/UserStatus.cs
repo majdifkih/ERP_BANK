@@ -1,0 +1,12 @@
+﻿namespace ERP.Banking.Domain.Enums;
+
+/// <summary>
+/// Represents the lifecycle status of a user account.
+/// </summary>
+public enum UserStatus
+{
+    Active = 1,
+    Inactive = 2,
+    Locked = 3,
+    Suspended = 4
+}

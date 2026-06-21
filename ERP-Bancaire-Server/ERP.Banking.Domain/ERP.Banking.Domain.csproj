@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<RootNamespace>ERP.Banking.Domain</RootNamespace>
+		<AssemblyName>ERP.Banking.Domain</AssemblyName>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Folder Include="Interfaces\Application\" />
+	  <Folder Include="Interfaces\ExternalProviders\" />
+	  <Folder Include="Interfaces\Persistence\" />
+	</ItemGroup>
+
+</Project>
